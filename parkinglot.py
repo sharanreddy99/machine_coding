@@ -4,25 +4,28 @@ import types
 def startParkingSystem():
     print("Welcome to parking lot application.")
     while True:
-        inputStr = input()
-        if inputStr == "exit":
-            print("Closing the app now.")
-            return
-        
-        params = inputStr.split()
-        validFunctions = validOptions
-        idx = 0
-        while idx < len(params):
-            if isinstance(validFunctions[params[idx]],dict):
-                validFunctions = validFunctions[params[idx]]
-            elif isinstance(validFunctions[params[idx]],types.FunctionType):
-                validFunctions[params[idx]](*params[idx+1:])
-                break
-            else:
-                print('Invalid option selected. Please try again')
-                break
-            idx += 1
-    
+        try:
+            inputStr = input()
+            if inputStr == "exit":
+                print("Closing the app now.")
+                return
+            
+            params = inputStr.split()
+            validFunctions = validOptions
+            idx = 0
+            while idx < len(params):
+                if isinstance(validFunctions[params[idx]],dict):
+                    validFunctions = validFunctions[params[idx]]
+                elif isinstance(validFunctions[params[idx]],types.FunctionType):
+                    validFunctions[params[idx]](*params[idx+1:])
+                    break
+                else:
+                    print('Invalid option selected. Please try again')
+                    break
+                idx += 1
+        except Exception as e:
+            print('Invalid Option.Please Try Again')
+            
 def createParkingLot(id, no_of_floors, no_of_slots):
     global currentLotId
     no_of_floors, no_of_slots = int(no_of_floors),int(no_of_slots)
