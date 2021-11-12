@@ -1,5 +1,5 @@
 # packages
-from random import randrange
+from random import choice
 
 # constants
 LEFT = 0
@@ -298,17 +298,23 @@ def setEmptyTile(rowIdx, colIdx):
     global board
     board[rowIdx][colIdx] = '-'
 
+def getEmptyTilesPositions():
+    global board,rows,cols
+    emptyPositions = {}
+    for i in range(rows):
+        for j in range(cols):
+            if board[i][j] == '-':
+                emptyPositions[i*rows+j] = True
+    return emptyPositions
+
 def addRandomTile(no_of_tiles):
     global board, rows, cols
+    emptyPositions = getEmptyTilesPositions()
     
-    while no_of_tiles > 0:
-        row_loc = randrange(rows)
-        col_loc = randrange(cols)
-        if board[row_loc][col_loc] == '-':
-            board[row_loc][col_loc] = 2
-            no_of_tiles -=1
-        else:
-            continue
+    for _ in range(no_of_tiles):
+        ourChoice = choice(list(emptyPositions.keys())) 
+        board[ourChoice//rows][ourChoice%rows] = 2
+        del emptyPositions[ourChoice]
 
 def checkGameWon():
     global board
