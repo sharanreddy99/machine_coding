@@ -6,6 +6,7 @@ LEFT = 0
 RIGHT = 1
 TOP = 2
 BOTTOM = 3
+MAX_TILE_VALUE = 2048
 
 # variables
 board = []
@@ -313,7 +314,7 @@ def checkGameWon():
     global board
     for row in board:
         for tile in row:
-            if tile == 2048:
+            if tile == MAX_TILE_VALUE:
                 return True
     return False
 
@@ -338,4 +339,6 @@ def printBoard(direction):
     rowStr += '\n\n----------------------\n\n'
 
     fileWrite('result.txt','a',rowStr)
-initializeBoard()
+
+if __name__ == '__main__':
+    initializeBoard()
